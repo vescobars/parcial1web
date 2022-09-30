@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
-import { TiendaEntity } from '../cafe/cafe.entity';
 import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
 import { Repository } from 'typeorm';
 import { TiendaEntity } from './tienda.entity';
@@ -30,43 +29,12 @@ describe('TiendaService', () => {
         const tienda: TiendaEntity = await repository.save({
         nombre: faker.random.word(),
         direccion: faker.random.word(),
-        telefono: faker.phone.number('#-###-###-###'),
+        telefono: faker.phone.number('###-###-####'),
         cafes: null
       })
         tiendaList.push(tienda);
     }
   }
-
-  it('create should return a new tienda', async () => {
-    const cafe: TiendaEntity = {
-      id: faker.datatype.number({ min: 1}),
-      nombre: faker.random.word(),
-      direccion: faker.random.word(),
-      telefono: faker.phone.number('###-###-###'),
-      cafes : null,
-    }
- 
-    const newTienda: TiendaEntity = await service.create(cafe);
-    expect(newTienda).not.toBeNull();
- 
-    const storedTienda: TiendaEntity = await repository.findOne({where: {id: newTienda.id}});
-    expect(storedTienda).not.toBeNull();
-    expect(storedTienda.nombre).toEqual(newTienda.nombre);
-    expect(storedTienda.descripcion).toEqual(newTienda.descripcion);
-    expect(storedTienda.precio).toEqual(newTienda.precio);
-  });
-
-  it('create should return a logic error when creating a tienda', async () => {
-    const cafe: TiendaEntity = {
-      id: faker.datatype.number({ min: 1}),
-      nombre: faker.random.word(),
-      direccion: faker.random.word(),
-      telefono: faker.phone.number('###-###-###-###'),
-      tiendas:null,
-    }
- 
-    await expect(() => service.create(cafe)).rejects.toHaveProperty("message", "The cafe with the given id fails the price condition");
-  });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
@@ -76,9 +44,9 @@ describe('TiendaService', () => {
     const cafe: TiendaEntity = {
       id: faker.datatype.number({ min: 1}),
       nombre: faker.random.word(),
-      descripcion: faker.random.words(),
-      precio: faker.datatype.number({ min: 1, max: 10000}),
-      tiendas:null,
+      direccion: faker.random.word(),
+      telefono: faker.phone.number('###-###-####'),
+      cafes:null,
     }
  
     const newTienda: TiendaEntity = await service.create(cafe);
@@ -87,19 +55,19 @@ describe('TiendaService', () => {
     const storedCafe: TiendaEntity = await repository.findOne({where: {id: newTienda.id}});
     expect(storedCafe).not.toBeNull();
     expect(storedCafe.nombre).toEqual(newTienda.nombre);
-    expect(storedCafe.descripcion).toEqual(newTienda.descripcion);
-    expect(storedCafe.precio).toEqual(newTienda.precio);
+    expect(storedCafe.direccion).toEqual(newTienda.direccion);
+    expect(storedCafe.telefono).toEqual(newTienda.telefono);
   });
 
   it('create should return a logic error when creating a cafe', async () => {
     const cafe: TiendaEntity = {
       id: faker.datatype.number({ min: 1}),
       nombre: faker.random.word(),
-      descripcion: faker.random.words(),
-      precio: faker.datatype.number({ min: -10000, max: -1}),
-      tiendas:null,
+      direccion: faker.random.word(),
+      telefono: faker.phone.number('###-###-##########'),
+      cafes:null,
     }
  
-    await expect(() => service.create(cafe)).rejects.toHaveProperty("message", "The cafe with the given id fails the price condition");
+    await expect(() => service.create(cafe)).rejects.toHaveProperty("message", "The tienda with the given id fails the telephone condition");
   });
 });

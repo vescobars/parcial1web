@@ -12,8 +12,15 @@ export class TiendaService {
     ){}
 
     async create(tienda: TiendaEntity): Promise<TiendaEntity> {
-        if (tienda.telefono.length != 10)
-          throw new BusinessLogicException("The tienda with the given id was not found", BusinessError.PRECONDITION_FAILED);
+        if (tienda.telefono.length != 10){
+            let caracteres = tienda.telefono;
+            let arrcaracteres = caracteres.split("-");
+            let count = 0 ;
+            for (const x of arrcaracteres) { count = count + x.length; }
+            if (count != 10){
+                throw new BusinessLogicException("The tienda with the given id was not found", BusinessError.PRECONDITION_FAILED);
+            }
+        }
         return await this.tiendaRepository.save(tienda);
     }
 }
