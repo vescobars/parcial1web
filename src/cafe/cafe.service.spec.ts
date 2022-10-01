@@ -69,6 +69,6 @@ describe('CafeService', () => {
       tiendas:null,
     }
  
-    await expect(() => service.create(cafe)).rejects.toHaveProperty("message", "The cafe with the given id fails the price condition");
+    await expect(() => service.create(cafe)).rejects.toHaveProperty("message", "The cafe with the given id has negative price");
   });
 });

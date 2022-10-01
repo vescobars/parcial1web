@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BusinessLogicException, BusinessError } from 'src/shared/errors/business-errors';
+import { BusinessLogicException, BusinessError } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { TiendaEntity } from './tienda.entity';
 
@@ -18,7 +18,7 @@ export class TiendaService {
             let count = 0 ;
             for (const x of arrcaracteres) { count = count + x.length; }
             if (count != 10){
-                throw new BusinessLogicException("The tienda with the given id was not found", BusinessError.PRECONDITION_FAILED);
+                throw new BusinessLogicException("The tienda with the given id fails the telephone condition", BusinessError.PRECONDITION_FAILED);
             }
         }
         return await this.tiendaRepository.save(tienda);
