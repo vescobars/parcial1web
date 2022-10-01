@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CafeEntity } from 'src/cafe/cafe.entity';
-import { BusinessLogicException, BusinessError } from 'src/shared/errors/business-errors';
-import { TiendaEntity } from 'src/tienda/tienda.entity';
+import { CafeEntity } from '../cafe/cafe.entity';
+import { BusinessLogicException, BusinessError } from '../shared/errors/business-errors';
+import { TiendaEntity } from '../tienda/tienda.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

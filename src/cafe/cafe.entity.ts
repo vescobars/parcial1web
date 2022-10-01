@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { TiendaEntity } from 'src/tienda/tienda.entity';
+import { TiendaEntity } from '../tienda/tienda.entity';
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class CafeEntity{
